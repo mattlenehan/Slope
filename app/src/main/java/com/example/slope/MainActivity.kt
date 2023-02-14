@@ -1,16 +1,14 @@
 package com.example.slope
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.slope.databinding.ActivityMainBinding
-import com.example.slope.ui.main.transactions.TransactionListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

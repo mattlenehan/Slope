@@ -2,9 +2,7 @@ package com.example.slope.ui.main.details
 
 import com.example.models.Transaction
 import com.example.slope.R
-import com.example.slope.ui.main.SortOption
 import com.example.slope.ui.main.util.ViewItem
-import java.time.LocalDate
 
 sealed class TransactionDetailsViewItem(
     open val id: String,
@@ -15,7 +13,8 @@ sealed class TransactionDetailsViewItem(
 
     override fun areContentsTheSame(other: TransactionDetailsViewItem): Boolean = this == other
 
-    override fun areItemsTheSame(other: TransactionDetailsViewItem): Boolean = type == other.type && id == other.id
+    override fun areItemsTheSame(other: TransactionDetailsViewItem): Boolean =
+        type == other.type && id == other.id
 
     data class Header(
         override val id: String,

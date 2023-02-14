@@ -2,7 +2,6 @@ package com.example.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @JsonClass(generateAdapter = true)

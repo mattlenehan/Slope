@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.slope.R
-import com.example.slope.databinding.*
+import com.example.slope.databinding.DetailsAttributeViewItemBinding
+import com.example.slope.databinding.DetailsHeaderViewItemBinding
+import com.example.slope.databinding.FragmentTransactionDetailsBinding
 import com.example.slope.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +38,7 @@ class TransactionDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         init()
         subscribeUi()
     }
@@ -74,11 +76,17 @@ class TransactionDetailsFragment : Fragment() {
 private class ListAdapter : RecyclerView.Adapter<TransactionDetailsViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<TransactionDetailsViewItem>() {
-        override fun areItemsTheSame(oldItem: TransactionDetailsViewItem, newItem: TransactionDetailsViewItem): Boolean {
+        override fun areItemsTheSame(
+            oldItem: TransactionDetailsViewItem,
+            newItem: TransactionDetailsViewItem
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: TransactionDetailsViewItem, newItem: TransactionDetailsViewItem): Boolean {
+        override fun areContentsTheSame(
+            oldItem: TransactionDetailsViewItem,
+            newItem: TransactionDetailsViewItem
+        ): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -92,7 +100,10 @@ private class ListAdapter : RecyclerView.Adapter<TransactionDetailsViewHolder>()
     override fun getItemViewType(position: Int) =
         differ.currentList[position].type.ordinal
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionDetailsViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TransactionDetailsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (val itemType = TransactionDetailsViewItemType.values()[viewType]) {
             TransactionDetailsViewItemType.HEADER -> {

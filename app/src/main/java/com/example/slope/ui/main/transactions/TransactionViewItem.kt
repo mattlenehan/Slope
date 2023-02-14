@@ -15,7 +15,8 @@ sealed class TransactionViewItem(
 
     override fun areContentsTheSame(other: TransactionViewItem): Boolean = this == other
 
-    override fun areItemsTheSame(other: TransactionViewItem): Boolean = type == other.type && id == other.id
+    override fun areItemsTheSame(other: TransactionViewItem): Boolean =
+        type == other.type && id == other.id
 
     data class TransactionListItem(
         override val id: String,

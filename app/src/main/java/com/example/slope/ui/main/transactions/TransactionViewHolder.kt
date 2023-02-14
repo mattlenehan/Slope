@@ -1,10 +1,8 @@
 package com.example.slope.ui.main.transactions
 
 import android.content.Context
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import coil.load
@@ -18,9 +16,6 @@ import com.example.slope.ui.main.getDisplayName
 import com.example.slope.ui.main.util.getDisplayString
 import com.example.slope.ui.main.util.roundedCorners
 import com.example.slope.ui.main.util.toCurrencyDisplayText
-import okhttp3.internal.format
-import java.text.DecimalFormat
-import java.text.NumberFormat
 
 internal sealed class TransactionViewHolder(bindings: ViewBinding) :
     RecyclerView.ViewHolder(bindings.root) {
@@ -73,7 +68,8 @@ internal sealed class TransactionViewHolder(bindings: ViewBinding) :
         private fun showPopup(
             v: View,
             context: Context,
-            onNewSortOptionSelected: (SortOption) -> Unit) {
+            onNewSortOptionSelected: (SortOption) -> Unit
+        ) {
             PopupMenu(context, v).apply {
                 setOnMenuItemClickListener { item ->
                     when (item?.itemId) {

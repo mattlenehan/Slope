@@ -1,7 +1,6 @@
 package com.example.slope.ui.main.transactions
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.networking.util.ApiResult
 import com.example.slope.R
-import com.example.slope.databinding.DateHeaderViewItemBinding
-import com.example.slope.databinding.EmptyViewItemBinding
-import com.example.slope.databinding.FragmentTransactionListBinding
-import com.example.slope.databinding.SortViewItemBinding
-import com.example.slope.databinding.TransactionViewItemBinding
+import com.example.slope.databinding.*
 import com.example.slope.ui.main.MainViewModel
 import com.example.slope.ui.main.SortOption
 import com.example.slope.ui.main.util.showSnackbar
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class TransactionListFragment : Fragment() {

@@ -6,7 +6,6 @@ import com.example.networking.webservices.TransactionsWebservice
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import retrofit2.Retrofit
-import timber.log.Timber
 
 class TransactionRepositoryImpl(
     private val transactionsWebservice: TransactionsWebservice,

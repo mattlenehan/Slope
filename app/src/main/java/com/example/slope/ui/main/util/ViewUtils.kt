@@ -48,8 +48,8 @@ fun LocalDateTime.getDisplayString(): String {
 fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
     when (val value = this[it]) {
         is JSONArray -> {
-            val map = (0 until value.length()).associate {
-                    key -> Pair(key.toString(), value[key])
+            val map = (0 until value.length()).associate { key ->
+                Pair(key.toString(), value[key])
             }
             JSONObject(map).toMap().values.toList()
         }
