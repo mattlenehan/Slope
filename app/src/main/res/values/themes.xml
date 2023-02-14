@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Slope" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/avenirnext_regular</item>
+        <item name="dividerColor">@color/black</item>
+    </style>
+
+    <style name="Slope.Text.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:fontFamily">@font/avenirnext_demi</item>
+    </style>
+
+    <style name="Slope.Text.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:fontFamily">@font/avenirnext_regular</item>
+    </style>
+
+    <style name="Slope.Text.Small" parent="TextAppearance.AppCompat.Small">
+        <item name="android:fontFamily">@font/avenirnext_regular</item>
+    </style>
+
+    <style name="Slope.Text.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/avenirnext_medium</item>
+    </style>
+
+    <style name="Slope.Text.Large" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/avenirnext_demi</item>
+    </style>
+
+    <style name="Slope.Text.Headline" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/avenirnext_bold</item>
+    </style>
+</resources>

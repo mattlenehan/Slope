@@ -1,0 +1,10 @@
+apply from: "../gradle_include/module_android.gradle"
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:$app_compat_version"
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation 'com.google.guava:guava:29.0-android'
+}

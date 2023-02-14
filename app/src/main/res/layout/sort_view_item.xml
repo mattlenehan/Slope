@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/sort_option_text"
+            style="@style/Slope.Text.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingTop="@dimen/tiny_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingBottom="@dimen/tiny_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Newest"
+            android:drawablePadding="@dimen/small_margin"
+            app:drawableStartCompat="@drawable/ic_sort" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

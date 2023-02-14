@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Slope</string>
+    <string name="dollar_x">$%s</string>
+    <string name="search_transactions">Search Transactions</string>
+    <string name="newest_first">Newest First</string>
+    <string name="oldest_first">Oldest First</string>
+    <string name="merchant_a_z"><![CDATA[Merchant (A->Z)]]></string>
+    <string name="amount">$ Amount</string>
+    <string name="no_transactions_found">No transactions found 🤷</string>
+</resources>

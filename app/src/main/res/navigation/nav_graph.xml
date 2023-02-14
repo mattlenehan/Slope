@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/fragment_transaction_list">
+
+    <fragment
+        android:id="@+id/fragment_transaction_list"
+        android:name="com.example.slope.ui.main.transactions.TransactionListFragment"
+        android:label="Transactions"
+        tools:layout="@layout/fragment_transaction_list">
+        <action
+            android:id="@+id/open_transaction_details"
+            app:destination="@id/fragment_transaction_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragment_transaction_list"
+            app:popUpToInclusive="false">
+            <argument
+                android:name="transaction_id"
+                app:argType="integer"
+                app:nullable="false" />
+            <argument
+                android:name="merchant_name"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_transaction_details"
+        android:name="com.example.slope.ui.main.details.TransactionDetailsFragment"
+        android:label="{merchant_name}"
+        tools:layout="@layout/fragment_transaction_details">
+        <argument
+            android:name="transaction_id"
+            app:argType="integer"
+            app:nullable="false" />
+        <argument
+            android:name="merchant_name"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+</navigation>
