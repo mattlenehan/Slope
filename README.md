@@ -35,3 +35,5 @@ Delevopment Notes:
   - Lottie empty state animation 💆
   - Coil for image loading with a roundedCorners extension function 🟡
   - AsyncListDiffer is powering the adapter items so the auto item animations in the recyclerview are used on only the items that have changed 🤹‍♀️
+  - The sorting options support: Newest, Oldest, Merchant Name, and Dollar Amount. I felt these were the 4 most important pieces to see sorted. The Date section headers only appear for Newest & Oldest sort options.
+  - Search will query against Merchant Name and Category. I felt it was important to query Category so that the user can build unique views like "Show me my SaaS expenses sorted by Dollar Amount".
