@@ -21,7 +21,7 @@ Delevopment Notes:
       - sort, search, and apiResponse are each Flows that combine into
         one list of ViewItems for the recyclerview adapter to take in
     - Dependency Injected the Repository into the ViewModel and the Webservice into the Repository
-    - To show the field/attributes on the details screen, I converted the Transaction item into a Map<String, String> and looped through to create a reusable view for each field. I excluded redundant information that was already shown in the header and fields with empty values
+    - To show the field/attributes on the details screen, I converted the Transaction item into a Map<String, String> and looped through to create a reusable view for each field. I excluded redundant information that was already shown in the header and fields with empty values.
   - 📡 networking
     - Retrofit client that uses OkHttp for the HTTP client
     - Added a LocalDateAdapter and LocalDateTimeAdapter to automatically deserialize the Date and DateTime Strings
