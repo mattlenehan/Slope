@@ -34,6 +34,10 @@ class TransactionListFragment : Fragment() {
         ListAdapter(listener = adapterListener)
     }
 
+    private val insightsAdapter by lazy {
+        InsightsAdapter()
+    }
+
     private val searchResultsAdapter by lazy {
         ListAdapter(listener = adapterListener)
     }
@@ -62,6 +66,9 @@ class TransactionListFragment : Fragment() {
     }
 
     private fun init() {
+        binding.insightsRecycler.apply {
+            adapter = insightsAdapter
+        }
         binding.recycler.apply {
             adapter = transactionsAdapter
             layoutManager = LinearLayoutManager(binding.root.context)
@@ -121,6 +128,12 @@ class TransactionListFragment : Fragment() {
             searchResultsAdapter.accept(it ?: emptyList()) {
                 binding.searchResultsRecycler.scrollToPosition(0)
             }
+        }
+
+        viewModel.insights.observe(
+            viewLifecycleOwner
+        ) {
+            insightsAdapter.accept(it)
         }
     }
 
@@ -218,6 +231,58 @@ private class ListAdapter(private val listener: AdapterListener) :
                 onNewSortOptionSelected = { sortOption -> listener.onSortOptionSelected(sortOption) }
             )
             is TransactionViewHolder.EmptyViewHolder -> {}
+        }
+    }
+
+    override fun getItemCount() = differ.currentList.size
+}
+
+private class InsightsAdapter : RecyclerView.Adapter<InsightsViewHolder>() {
+
+    private val diffCallback = object : DiffUtil.ItemCallback<InsightsViewItem>() {
+        override fun areItemsTheSame(
+            oldItem: InsightsViewItem,
+            newItem: InsightsViewItem
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: InsightsViewItem,
+            newItem: InsightsViewItem
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
+    }
+
+    val differ = AsyncListDiffer(this, diffCallback)
+
+    fun accept(newItems: List<InsightsViewItem>, commitCallback: Runnable? = null) {
+        differ.submitList(newItems, commitCallback)
+    }
+
+    override fun getItemViewType(position: Int) =
+        differ.currentList[position].type.ordinal
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InsightsViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (val itemType = InsightsViewItemType.values()[viewType]) {
+            InsightsViewItemType.INSIGHT -> {
+                val bindings: InsightItemBinding =
+                    DataBindingUtil.inflate(
+                        inflater, itemType.layoutId, parent, false
+                    )
+                InsightsViewHolder.InsightCardViewHolder(bindings)
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: InsightsViewHolder, position: Int) {
+        val item = differ.currentList[position]
+        when (holder) {
+            is InsightsViewHolder.InsightCardViewHolder -> holder.bind(
+                item as InsightsViewItem.Insight
+            )
         }
     }
 

@@ -7,4 +7,11 @@
     <string name="merchant_a_z"><![CDATA[Merchant (A->Z)]]></string>
     <string name="amount">$ Amount</string>
     <string name="no_transactions_found">No transactions found 🤷</string>
+    <string name="total_amount_spent">Total amount spent</string>
+    <string name="missing_receipts">Missing Receipts</string>
+    <plurals name="x_transactions">
+        <item quantity="one">%s transaction</item>
+        <item quantity="other">%s transactions</item>
+    </plurals>
+    <string name="x_percent">%.2f%%</string>
 </resources>

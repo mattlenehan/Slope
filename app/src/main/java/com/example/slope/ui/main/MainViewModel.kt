@@ -1,6 +1,8 @@
 package com.example.slope.ui.main
 
 import android.content.Context
+import androidx.compose.ui.text.toLowerCase
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,11 +11,15 @@ import com.example.networking.util.ApiResult
 import com.example.slope.R
 import com.example.slope.repository.TransactionRepository
 import com.example.slope.ui.main.details.TransactionDetailsViewItem
+import com.example.slope.ui.main.transactions.InsightsViewItem
 import com.example.slope.ui.main.transactions.TransactionViewItem
+import com.example.slope.ui.main.util.getColorFromAttr
 import com.example.slope.ui.main.util.splitCamelCase
+import com.example.slope.ui.main.util.toCurrencyDisplayText
 import com.example.slope.ui.main.util.toMap
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,10 +33,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val transactionRepository: TransactionRepository,
+    @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
     private val _transactions = MutableLiveData<ApiResult<List<TransactionViewItem>?>>()
     val transactions: LiveData<ApiResult<List<TransactionViewItem>?>> = _transactions
+
+    private val _insights = MutableLiveData<List<InsightsViewItem>>()
+    val insights: LiveData<List<InsightsViewItem>> = _insights
 
     private val _searchResults = MutableLiveData<List<TransactionViewItem>?>()
     val searchResults: LiveData<List<TransactionViewItem>?> = _searchResults
@@ -140,6 +150,134 @@ class MainViewModel @Inject constructor(
                             )
                         }
                         _searchResults.value = searchViewItems
+
+                        /*** Insights ***/
+                        val insightViewItems = mutableListOf<InsightsViewItem>()
+                        // need total amount spent
+                        // sum the amount
+                        val totalSpend = transactions.sumOf {
+                            it.amount
+                        }
+                        insightViewItems.add(
+                            InsightsViewItem.Insight(
+                                id = "TOTAL_SPEND",
+                                insightType = "Total amount spent",
+                                amount = totalSpend.toCurrencyDisplayText(context.resources),
+                                amountColor = R.color.teal_700
+                            )
+                        )
+
+                        val numMissingReceipts = transactions.filter {
+                            it.hasReceipt.lowercase() == "no"
+                        }.size
+                        insightViewItems.add(
+                            InsightsViewItem.Insight(
+                                id = "MISSING_R",
+                                insightType = "Missing Receipts",
+                                amount = context.resources.getQuantityString(
+                                    R.plurals.x_transactions,
+                                    numMissingReceipts,
+                                    numMissingReceipts
+                                ),
+                                amountColor = R.color.purple_200
+                            )
+                        )
+
+                        //Top merchant
+                        val merchantMap = transactions.groupBy {
+                            it.merchantName
+                        }
+                        var topMerchantSoFar: String? = null
+                        var topAmountSoFar = 0.0
+                        merchantMap.forEach {
+                            if (topMerchantSoFar == null) {
+                                topMerchantSoFar = it.key
+                            }
+                            val merchantValue = it.value.sumOf { t ->
+                                t.amount
+                            }
+                            if (topAmountSoFar == null || topAmountSoFar < merchantValue) {
+                                topMerchantSoFar = it.key
+                                topAmountSoFar = merchantValue
+                            }
+                        }
+                        insightViewItems.add(
+                            InsightsViewItem.Insight(
+                                id = "TOP_MERCHANT",
+                                insightType = "Top Merchant",
+                                insightDetail = topMerchantSoFar,
+                                amount = topAmountSoFar.toCurrencyDisplayText(context.resources),
+                                amountColor = R.color.teal_200
+                            )
+                        )
+
+                        //Top category
+                        val categoryMap = transactions.groupBy {
+                            it.merchantCategory
+                        }
+                        var topCategorySoFar: String? = null
+                        var topCategorySpendSoFar = 0.0
+                        // already have totalSpend
+                        categoryMap.forEach {
+                            if (topCategorySoFar == null) {
+                                topCategorySoFar = it.key
+                            }
+                            val catValue = it.value.sumOf { t ->
+                                t.amount
+                            }
+                            if (topCategorySpendSoFar < catValue) {
+                                topCategorySoFar = it.key
+                                topCategorySpendSoFar = catValue
+                            }
+                        }
+                        insightViewItems.add(
+                            InsightsViewItem.Insight(
+                                id = "TOP_CAT",
+                                insightType = "Top Category",
+                                insightDetail = topCategorySoFar,
+                                amount = context.resources.getString(
+                                    R.string.x_percent,
+                                    topCategorySpendSoFar.div(totalSpend).times(100.0).toFloat()
+                                ),
+                                amountColor = R.color.purple_500
+                            )
+                        )
+
+                        // Top City
+                        val cityMap = transactions.groupBy {
+                            it.merchantCity
+                        }
+                        var topCitySoFar: String? = null
+                        var topCityCountSoFar = 0
+                        // already have totalSpend
+                        cityMap.forEach {
+                            if (topCitySoFar == null) {
+                                topCitySoFar = it.key
+                            }
+                            val count = it.value.size
+                            if (topCityCountSoFar < count) {
+                                topCitySoFar = it.key
+                                topCityCountSoFar = count
+                            }
+                        }
+                        val cityCountString = context.resources.getQuantityString(
+                            R.plurals.x_transactions,
+                            topCityCountSoFar,
+                            topCityCountSoFar
+                        )
+
+                        insightViewItems.add(
+                            InsightsViewItem.Insight(
+                                id = "CITY",
+                                insightType = "Top City",
+                                insightDetail = topCitySoFar,
+                                amount = cityCountString,
+                                amountColor = R.color.purple_700
+                            )
+                        )
+
+                        _insights.value = insightViewItems
+
                     }
                     ApiResult.Status.ERROR -> {
                         _transactions.value = ApiResult.error(

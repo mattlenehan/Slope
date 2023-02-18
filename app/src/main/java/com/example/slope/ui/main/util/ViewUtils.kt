@@ -1,7 +1,11 @@
 package com.example.slope.ui.main.util
 
+import android.content.Context
 import android.content.res.Resources
+import android.util.TypedValue
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import coil.request.ImageRequest
@@ -75,4 +79,14 @@ fun String.splitCamelCase(): String {
         ).toRegex(),
         " "
     )
+}
+
+@ColorInt
+fun Context.getColorFromAttr(
+    @AttrRes attrColor: Int,
+    typedValue: TypedValue = TypedValue(),
+    resolveRefs: Boolean = true
+): Int {
+    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
+    return typedValue.data
 }
