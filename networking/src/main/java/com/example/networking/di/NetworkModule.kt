@@ -56,7 +56,7 @@ class NetworkModule {
         val httpClient = builder.build()
 
         return Retrofit.Builder()
-            .baseUrl("https://ramp-interview.netlify.app")
+            .baseUrl("https://google.com")
             .client(httpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

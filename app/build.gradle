@@ -120,6 +120,8 @@ dependencies {
     api "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    implementation("com.squareup.moshi:moshi-kotlin:1.9.1")
 }
 
 hilt {
